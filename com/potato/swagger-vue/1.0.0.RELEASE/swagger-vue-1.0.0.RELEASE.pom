@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- 定义公共父类依赖 -->
+    <parent>
+        <groupId>com.potato</groupId>
+        <artifactId>parent</artifactId>
+        <version>1.0.0.RELEASE</version>
+    </parent>
+
+    <artifactId>swagger-vue</artifactId>
+    <version>1.0.0.RELEASE</version>
+    <name>swagger-vue</name>
+    <description>potato-swagger的vue web jar</description>
+
+    <!-- 规范化 -->
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0</url>
+        </license>
+    </licenses>
+    <scm>
+        <url>https://gitee.com/potato-org</url>
+    </scm>
+    <developers>
+        <developer>
+            <name>Liangzy</name>
+            <email>zhiyong.liang@zhaopin.com.cn</email>
+            <organization>zhaopin.com Software, Inc.</organization>
+            <organizationUrl>https://www.zhaopin.com/</organizationUrl>
+        </developer>
+        <developer>
+            <name>Chengzh</name>
+            <email>zenghui.cheng@zhaopin.com.cn</email>
+            <organization>zhaopin.com Software, Inc.</organization>
+            <organizationUrl>https://www.zhaopin.com/</organizationUrl>
+        </developer>
+    </developers>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>${project.basedir}/src/main/resources</directory>
+                <targetPath>META-INF/resources/</targetPath>
+            </resource>
+        </resources>
+    </build>
+
+    <repositories>
+        <repository>
+            <id>github</id>
+            <url>https://raw.githubusercontent.com/1210958801/potato_mvn_repo/main</url>
+        </repository>
+    </repositories>
+
+</project>
