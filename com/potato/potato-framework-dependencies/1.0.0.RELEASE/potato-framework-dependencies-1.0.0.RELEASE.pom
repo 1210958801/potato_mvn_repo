@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.potato</groupId>
+    <artifactId>potato-framework-dependencies</artifactId>
+    <version>1.0.0.RELEASE</version>
+    <name>potato-framework-dependencies</name>
+    <packaging>pom</packaging>
+    <description>potato base common dependencies</description>
+
+    <!-- standardization -->
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0</url>
+        </license>
+    </licenses>
+    <scm>
+        <url>https://gitee.com/potato-org</url>
+    </scm>
+    <developers>
+        <developer>
+            <name>Liangzy</name>
+            <email>zhiyong.liang@zhaopin.com.cn</email>
+            <organization>zhaopin.com Software, Inc.</organization>
+            <organizationUrl>https://www.zhaopin.com/</organizationUrl>
+        </developer>
+        <developer>
+            <name>Chengzh</name>
+            <email>zenghui.cheng@zhaopin.com.cn</email>
+            <organization>zhaopin.com Software, Inc.</organization>
+            <organizationUrl>https://www.zhaopin.com/</organizationUrl>
+        </developer>
+    </developers>
+
+    <properties>
+        <java.version>1.8</java.version>
+        <root.basedir>${project.basedir}</root.basedir>
+        <finalName>${project.artifactId}-${project.version}</finalName>
+        <maven.resources.overwrite>true</maven.resources.overwrite>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <spring-boot.version>2.1.4.RELEASE</spring-boot.version>
+        <commons-lang3.version>3.5</commons-lang3.version>
+        <com.fasterxml.jackson.core.version>
+            2.10.1
+        </com.fasterxml.jackson.core.version>
+        <okhttp.version>4.9.0</okhttp.version>
+        <okhttp-logging-interceptor.version>
+            4.9.0
+        </okhttp-logging-interceptor.version>
+        <lettuce-core.version>5.3.4.RELEASE</lettuce-core.version>
+        <!-- swagger文档配置 -->
+        <swagger.version>3.0.0</swagger.version>
+        <swagger-core.version>1.5.16</swagger-core.version>
+        <swagger-model.version>1.5.21</swagger-model.version>
+        <!--plugins-->
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+        <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
+        <maven-source-plugins.version>3.2.1</maven-source-plugins.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven-jar-plugin.version>2.4</maven-jar-plugin.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-configuration-processor</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang3.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${com.fasterxml.jackson.core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.lettuce</groupId>
+                <artifactId>lettuce-core</artifactId>
+                <version>${lettuce-core.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <!-- 配置打包资源文件 -->
+        <finalName>${finalName}</finalName>
+        <defaultGoal>compile</defaultGoal>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
+        <plugins>
+            <!-- maven 编译插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                </configuration>
+            </plugin>
+            <!-- 源码编译插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>${maven-source-plugins.version}</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.8.2</version>
+                <configuration>
+                    <altDeploymentRepository>
+                        internal.repo::default::file://${project.build.directory}/release
+                    </altDeploymentRepository>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.github.github</groupId>
+                <artifactId>site-maven-plugin</artifactId>
+                <version>0.12</version>
+                <configuration>
+                    <server>github</server>
+                    <message>commit new version to software</message>
+                    <repositoryName>potato_mvn_repo</repositoryName>
+                    <repositoryOwner>1210958801</repositoryOwner>
+                    <!-- Use merge or override the content -->
+                    <merge>true</merge>
+                    <outputDirectory>${project.build.directory}/release</outputDirectory>
+                    <branch>refs/heads/main</branch>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>site</goal>
+                        </goals>
+                        <!-- 选择执行插件的 maven 阶段 -->
+                        <phase>deploy</phase>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
